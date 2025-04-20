@@ -1,7 +1,9 @@
 "use client";
 
+import { Course } from '@/utils/calculateGPA';
+
 interface PrintButtonProps {
-  courses: any[];
+  courses: Course[];
 }
 
 export default function PrintButton({ courses }: PrintButtonProps) {
@@ -10,11 +12,11 @@ export default function PrintButton({ courses }: PrintButtonProps) {
       alert('Please add at least one course before printing.');
       return;
     }
-    
+
     const now = new Date();
     const dateStr = now.toLocaleDateString();
     const timeStr = now.toLocaleTimeString();
-    
+
     let dateElement = document.getElementById('printDate');
     if (!dateElement) {
       dateElement = document.createElement('div');
@@ -25,9 +27,9 @@ export default function PrintButton({ courses }: PrintButtonProps) {
         resultDiv.parentNode.insertBefore(dateElement, resultDiv.nextSibling);
       }
     }
-    
+
     dateElement.textContent = `Generated on: ${dateStr} at ${timeStr}`;
-    
+
     setTimeout(() => {
       window.print();
     }, 100);
