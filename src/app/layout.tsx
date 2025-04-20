@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'GPA Calculator',
-  description: 'Calculate your GPA easily',
+  title: 'GPA Calculator App',
+  description: 'Easily calculate your GPA',
 };
 
 export default function RootLayout({
