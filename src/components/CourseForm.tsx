@@ -8,26 +8,41 @@ interface CourseFormProps {
   onResetAll: () => void;
 }
 
+// Define grade options with both display text and actual values
+const GRADE_OPTIONS = [
+  { value: '4.0', text: 'A+ (4.0)', label: 'A+' },
+  { value: '4.0', text: 'A (4.0)', label: 'A' },
+  { value: '3.7', text: 'A- (3.7)', label: 'A-' },
+  { value: '3.3', text: 'B+ (3.3)', label: 'B+' },
+  { value: '3.0', text: 'B (3.0)', label: 'B' },
+  { value: '2.7', text: 'B- (2.7)', label: 'B-' },
+  { value: '2.3', text: 'C+ (2.3)', label: 'C+' },
+  { value: '2.0', text: 'C (2.0)', label: 'C' },
+  { value: '1.7', text: 'C- (1.7)', label: 'C-' },
+  { value: '1.3', text: 'D+ (1.3)', label: 'D+' },
+  { value: '1.0', text: 'D (1.0)', label: 'D' },
+  { value: '0.0', text: 'F (0.0)', label: 'F' },
+];
+
 export default function CourseForm({ onAddCourse, onResetAll }: CourseFormProps) {
   const [courseName, setCourseName] = useState('');
   const [credits, setCredits] = useState('');
-  const [grade, setGrade] = useState('4.0');
+  const [grade, setGrade] = useState(GRADE_OPTIONS[0].value);
+  const [gradeLabel, setGradeLabel] = useState(GRADE_OPTIONS[0].label);
+
+  const handleGradeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOption = GRADE_OPTIONS.find(opt => opt.value === e.target.value && opt.text === e.target.options[e.target.selectedIndex].text);
+    if (selectedOption) {
+      setGrade(e.target.value);
+      setGradeLabel(selectedOption.label);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     const creditsNum = parseFloat(credits);
     const gradeNum = parseFloat(grade);
-    const gradeText = grade === '4.0' ? 'A' : 
-                     grade === '3.7' ? 'A-' :
-                     grade === '3.3' ? 'B+' :
-                     grade === '3.0' ? 'B' :
-                     grade === '2.7' ? 'B-' :
-                     grade === '2.3' ? 'C+' :
-                     grade === '2.0' ? 'C' :
-                     grade === '1.7' ? 'C-' :
-                     grade === '1.3' ? 'D+' :
-                     grade === '1.0' ? 'D' : 'F';
 
     if (!courseName.trim()) {
       alert('Please enter a course name');
@@ -44,14 +59,15 @@ export default function CourseForm({ onAddCourse, onResetAll }: CourseFormProps)
       name: courseName,
       credits: creditsNum,
       grade: gradeNum,
-      gradeText: gradeText,
+      gradeText: gradeLabel, // Now properly stores "A+" or "A"
       gradePoints: creditsNum * gradeNum
     };
 
     onAddCourse(newCourse);
     setCourseName('');
     setCredits('');
-    setGrade('4.0');
+    setGrade(GRADE_OPTIONS[0].value);
+    setGradeLabel(GRADE_OPTIONS[0].label);
   };
 
   return (
@@ -84,21 +100,14 @@ export default function CourseForm({ onAddCourse, onResetAll }: CourseFormProps)
             <label className="block mb-1 text-gray-600 font-medium">Grade</label>
             <select
               value={grade}
-              onChange={(e) => setGrade(e.target.value)}
+              onChange={handleGradeChange}
               className="w-full p-2 border border-gray-300 rounded-md"
             >
-              <option value="4.0">A+ (4.0)</option>
-              <option value="4.0">A (4.0)</option>
-              <option value="3.7">A- (3.7)</option>
-              <option value="3.3">B+ (3.3)</option>
-              <option value="3.0">B (3.0)</option>
-              <option value="2.7">B- (2.7)</option>
-              <option value="2.3">C+ (2.3)</option>
-              <option value="2.0">C (2.0)</option>
-              <option value="1.7">C- (1.7)</option>
-              <option value="1.3">D+ (1.3)</option>
-              <option value="1.0">D (1.0)</option>
-              <option value="0.0">F (0.0)</option>
+              {GRADE_OPTIONS.map((option) => (
+                <option key={option.text} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
             </select>
           </div>
         </div>
