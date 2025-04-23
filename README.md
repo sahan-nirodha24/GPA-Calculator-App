@@ -33,6 +33,14 @@
   - React 
   - TypeScript
   - Tailwind CSS
+    
+### Deployment & CI/CD
+  - 🚀 Continuous Integration and Deployment via Netlify
+  - 🔄 Automatic deployment on Git commits
+  - 🌐 Hosted on Netlify with custom domain
+
+### Live Demo
+  - Visit the live application : https://my-gpa-calculator-web-app.netlify.app/
 
 ## Installation
 
@@ -54,23 +62,40 @@
 
 5. Open http://localhost:3000 in your browser
 
+## Deployment
+
+### This project is automatically deployed to Netlify:
+
+1) Every commit to the main branch triggers a new build and deployment
+2) Preview deployments are generated for pull requests
+3) Environment variables are managed through the Netlify dashboard
+
+### To set up your own deployment:
+
+1) Fork this repository
+2) Connect your GitHub account to Netlify
+3) Select this repository for deployment
+4) Configure build settings:
+    + Build command: npm run build
+    + Publish directory: .next
+
 ## Usage
 
-**1) Add Courses**
+### Add Courses
    - Enter course name
    - Input credit hours (1-6)
    - Select grade from dropdown
    - Click "Add Course"
 
-**2) Manage Data:**
+### Manage Data 
    - Delete individual courses with the Delete button
    - Reset all courses with "Reset All" button
 
-**3) View Results:**
+### View Results
    - Current GPA is displayed automatically
    - Full course list with grade points shown in table
 
-**4) Export:**
+### Export
    - Click "Print to PDF" to generate a printer-friendly version
 
 ## Future Developments
@@ -96,7 +121,7 @@
 
 - 🔄 Implement state management 
 
-- 🛠️ Add CI/CD pipeline
+- ✅ CI/CD pipeline with Netlify (Completed)
 
 - 📱 Progressive Web App (PWA) support
 
